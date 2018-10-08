@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 # Connect the Grove Temperature & Humidity Sensor Pro to digital port D4
 # This example uses the blue colored sensor.
 # SIG,NC,VCC,GND
-sensor = 3  # The Sensor goes on digital port 3.
+sensor = 4  # The Sensor goes on digital port 4.
 broker_address="192.168.1.55"
 
 # temp_humidity_sensor_type

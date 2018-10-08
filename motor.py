@@ -42,26 +42,27 @@ def on_message(client, userdata, msg):
 def on_start_motor(mosq, obj, msg):
     # This callback will only be called for messages with topics that match
     # 
-    # /actuators/motors/[motor number]/start/[speed 0|100]]
+    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
     print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     cmds =  msg.topic.split('/')
     motorNumber = int(cmds[3])
-    speed = int(cmds[5])
+    direction = int(cmds[5])
+    speed = int(cmds[6])
 
     sens = sensList.getSensor(motorNumber)
     sens.state = "running"
-    if speed > 0:  
-        sens.direction = "forward"
+    sens.direction = direction
+    if sens.direction == 1:  
         motorController.MotorDirectionSet(0b1010)
-    elif speed == 0: 
-        sens.direction = "unknown"
-    else:
-        sens.direction = "backward"
+        print("motor set to forward");
+    elif sens.direction == 0: 
         motorController.MotorDirectionSet(0b0101)
+        print("motor set to backward");
 
     sens.speed = abs(speed)
-    print("sensor configuration updated")
+
+    print("motor configuration updated")
 
     #fy: assign later. other motorcontroller according to controllerNumber
     motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
@@ -91,7 +92,7 @@ def stopMotor(motorNumber):
     sens = sensList.getSensor(motorNumber)
     sens.state = "stopped"
     sens.speed = 0
-    sens.direction = "unknown"
+    sens.direction = -1
     motorController.MotorSpeedSetAB(0,0) 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
@@ -133,7 +134,7 @@ if "__main__" == __name__:
 
 
         #subscribe generic motor channel
-        client.message_callback_add("/actuators/motors/+/start/+", on_start_motor)
+        client.message_callback_add("/actuators/motors/+/start/+/+", on_start_motor)
         client.message_callback_add("/actuators/motors/+/stop", on_stop_motor)
         client.on_message = on_message
     

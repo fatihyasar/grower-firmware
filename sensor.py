@@ -7,7 +7,7 @@ class sensor():
 		self.lastSeen = 0	            # Number of seconds since the sensor was last seen
 		self.state = "unknown"	        # State of the object: unknown, open, or closed
 		self.speed = 0
-		self.direction = "unknown"
+		self.direction = -1
 
 	def setState(self, newstate):
 		self.state = newstate

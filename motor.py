@@ -7,13 +7,13 @@ import paho.mqtt.client as mqtt
 import time
 import json
 from sensor import sensor
+import grove_i2c_motor_driver
 
-#import grove_i2c_motor_driver
 ########################
 # Globals
 ########################
 
-localBroker = "m2m.eclipse.org"		        # Local MQTT broker
+localBroker = "192.168.1.55"		        # Local MQTT broker m2m.eclipse.org
 localPort = 1883			                # Local MQTT port
 localUser = ""              		        # Local MQTT user
 localPass = ""	                            # Local MQTT password

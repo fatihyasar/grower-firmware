@@ -34,7 +34,7 @@ while True:
             json_data = json.dumps(data)
             print('data', json_data)
             client.publish(mqttPath, json_data) 
-            time.sleep(5)
+            time.sleep(2)
     except IOError:
         print ("Error")
         client.loop_stop() #stop the loop

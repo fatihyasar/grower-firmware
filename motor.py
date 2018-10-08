@@ -20,7 +20,7 @@ localPass = ""	                            # Local MQTT password
 deviceTopic = "/actuators/motors/#"		    # Local MQTT topic to monitor
 localTimeOut = 120			                # Local MQTT session timeout
 sensorList = {}
-#motorController = grove_i2c_motor_driver.motor_driver()
+motorController = grove_i2c_motor_driver.motor_driver()
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -53,18 +53,18 @@ def on_start_motor(mosq, obj, msg):
     sens.state = "running"
     if speed > 0:  
         sens.direction = "forward"
-        #motorController.MotorDirectionSet(0b1010)
+        motorController.MotorDirectionSet(0b1010)
     elif speed == 0: 
         sens.direction = "unknown"
     else:
         sens.direction = "backward"
-        #motorController.MotorDirectionSet(0b0101)
+        motorController.MotorDirectionSet(0b0101)
 
     sens.speed = abs(speed)
     print("sensor configuration updated")
 
     #fy: assign later. other motorcontroller according to controllerNumber
-    #motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+    motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
 def publishState(motorNumber, state, speed, direction):
@@ -92,7 +92,7 @@ def stopMotor(motorNumber):
     sens.state = "stopped"
     sens.speed = 0
     sens.direction = "unknown"
-    #motorController.MotorSpeedSetAB(0,0) 
+    motorController.MotorSpeedSetAB(0,0) 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
 

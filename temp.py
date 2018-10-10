@@ -29,7 +29,8 @@ while True:
         [temp,humidity] = grovepi.dht(sensor, white)  
         if math.isnan(temp) == False and math.isnan(humidity) == False:
             data['temp'] = temp
-            data['humidity'] = humidity;
+            data['humidity'] = humidity
+            data['time'] = int(time.time())
             #print("temp = %.02f C humidity =%.02f%%"%(temp, humidity))
             json_data = json.dumps(data)
             print('data', json_data)

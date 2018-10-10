@@ -322,11 +322,11 @@ def main():
 	while (True):
     		
 		data['visibleLux'] = readVisibleLux()
-		data['channel0'] = channel0;
-		data['channel1'] = channel1;
-		data['gain_m'] = gain_m;
-		data['timing_ms'] = timing_ms;
-		data['time'] = int(time.time());
+		data['channel0'] = channel0
+		data['channel1'] = channel1
+		data['gain_m'] = gain_m
+		data['timing_ms'] = timing_ms
+		data['time'] = int(time.time())
 
 		print("Lux: %i [Vis+IR=%i, IR=%i @ Gain=%ix, Timing=%.1fms]" % (readVisibleLux(), channel0, channel1, gain_m, timing_ms))
 

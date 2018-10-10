@@ -318,6 +318,7 @@ def main():
 	client.connect(broker_address) #connect to broker
 	client.loop_start() #start the loop
 
+
 	while (True):
     		
 		data['visibleLux'] = readVisibleLux()

@@ -18,7 +18,7 @@ import RPi.GPIO as GPIO
 from smbus import SMBus
 
 #custom
-mqttPath = "/sensors/ligtsensor"
+mqttPath = "/sensors/lightsense"
 broker_address="192.168.1.55"
 data = {}
 

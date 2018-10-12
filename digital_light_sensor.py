@@ -316,7 +316,7 @@ def init():
 	powerDown()
 
 def publishNotification(alert):
-	data["alert"] = "Sunlight simulation is turned ON"
+	data["alert"] = alert
 	data["payload"] = ""
 	json_data = json.dumps(data)
 	client.publish(apnPath, json_data) 

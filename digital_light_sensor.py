@@ -23,6 +23,9 @@ apnPath = "/brokers/pushnotification"
 broker_address="192.168.1.55"
 data = {}
 
+lightState = 0
+lightsMinTreshold = 500
+
 
 TSL2561_Control = 0x80
 TSL2561_Timing = 0x81
@@ -312,6 +315,13 @@ def init():
 	writeRegister(TSL2561_Interrupt, 0x00)
 	powerDown()
 
+def publishNotification(alert)
+	data["alert"] = "Sunlight simulation is turned ON"
+	data["payload"] = ""
+	json_data = json.dumps(data)
+	client.publish(apnPath, json_data) 
+
+
 def main():
 	init()
 
@@ -321,8 +331,8 @@ def main():
 
 
 	while (True):
-    		
-		data['visibleLux'] = readVisibleLux()
+    	visibleLux = readVisibleLux()
+		data['visibleLux'] = visibleLux
 		data['channel0'] = channel0
 		data['channel1'] = channel1
 		data['gain_m'] = gain_m
@@ -333,18 +343,20 @@ def main():
 
 		json_data = json.dumps(data)
 		print('data', json_data)
-		client.publish(mqttPath, json_data) 
+		publishNotification(mqttPath, json_data)
 
-		data = {}
-		if(int(data['visibleLux']) > 100):
-			data["alert"] = "Sunlight simulation is turned ON"
+		message = ""
+
+		#Lights is open
+		if visibleLux > lightsMinTreshold:
+    			if lightState == 0:    					 
+						publishNotification("Sunlight simulation is turned ON")
+    			lightState = 1
+		#Lights is closed
 		else:
-			data["alert"] = "Sunlight simulation is turned ON"
-
-		data["payload"] = ""
-		json_data = json.dumps(data)
-		client.publish(apnPath, json_data) 
-
+    			if lightState == 1:    					 
+						publishNotification("Sunlight simulation is turned OFF")
+    			lightState = 0
 		
 		sleep(5)
 

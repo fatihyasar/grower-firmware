@@ -331,34 +331,34 @@ def main():
 
 
 	while (True):
-    	visibleLux = readVisibleLux()
-		data['visibleLux'] = visibleLux
-		data['channel0'] = channel0
-		data['channel1'] = channel1
-		data['gain_m'] = gain_m
-		data['timing_ms'] = timing_ms
-		data['time'] = int(time.time())
+			visibleLux = readVisibleLux()
+			data['visibleLux'] = visibleLux
+			data['channel0'] = channel0
+			data['channel1'] = channel1
+			data['gain_m'] = gain_m
+			data['timing_ms'] = timing_ms
+			data['time'] = int(time.time())
 
-		print("Lux: %i [Vis+IR=%i, IR=%i @ Gain=%ix, Timing=%.1fms]" % (readVisibleLux(), channel0, channel1, gain_m, timing_ms))
+			print("Lux: %i [Vis+IR=%i, IR=%i @ Gain=%ix, Timing=%.1fms]" % (readVisibleLux(), channel0, channel1, gain_m, timing_ms))
 
-		json_data = json.dumps(data)
-		print('data', json_data)
-		client.publish(mqttPath, json_data)
+			json_data = json.dumps(data)
+			print('data', json_data)
+			client.publish(mqttPath, json_data)
 
-		message = ""
+			message = ""
 
-		#Lights is open
-		if visibleLux > lightsMinTreshold:
-    			if lightState == 0:    					 
-						publishNotification("Sunlight simulation is turned ON")
-    			lightState = 1
-		#Lights is closed
-		else:
-    			if lightState == 1:    					 
-						publishNotification("Sunlight simulation is turned OFF")
-    			lightState = 0
-		
-		sleep(5)
+			#Lights is open
+			if visibleLux > lightsMinTreshold:
+					if lightState == 0:    					 
+							publishNotification("Sunlight simulation is turned ON")
+					lightState = 1
+			#Lights is closed
+			else:
+					if lightState == 1:    					 
+							publishNotification("Sunlight simulation is turned OFF")
+					lightState = 0
+			
+			sleep(5)
 
 if __name__ == "__main__":
         main()

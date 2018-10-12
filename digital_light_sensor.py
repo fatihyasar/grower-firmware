@@ -315,11 +315,11 @@ def init():
 	powerDown()
 
 def publishNotification(alert):
-    msg = {}
-	msg["alert"] = alert
-	msg["payload"] = ""
-	json_data = json.dumps(msg)
-	client.publish(apnPath, json_data) 
+		msg = {}
+		msg["alert"] = alert
+		msg["payload"] = ""
+		json_data = json.dumps(msg)
+		client.publish(apnPath, json_data) 
 
 
 def main():
@@ -341,7 +341,7 @@ def main():
 			data['timing_ms'] = timing_ms
 			data['time'] = int(time.time())
 
-			print("Lux: %i [Vis+IR=%i, IR=%i @ Gain=%ix, Timing=%.1fms]" % (readVisibleLux(), channel0, channel1, gain_m, timing_ms))
+			print("Lux: %i [Vis+IR=%i, IR=%i @ Gain=%ix, Timing=%.1fms]" % (visibleLux, channel0, channel1, gain_m, timing_ms))
 
 			json_data = json.dumps(data)
 			print('data', json_data)
@@ -349,17 +349,18 @@ def main():
 
 			message = ""
 
-			#Lights is open
+			#Lights is opened
 			if visibleLux > lightsMinTreshold:
 					if lightState == 0:    					 
+							lightState = 1
 							publishNotification("Sunlight simulation is turned ON")
-					lightState = 1
+
 			#Lights is closed
 			else:
 					if lightState == 1:    					 
+							lightState = 0
 							publishNotification("Sunlight simulation is turned OFF")
-					lightState = 0
-			
+
 			sleep(5)
 
 if __name__ == "__main__":

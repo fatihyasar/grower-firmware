@@ -315,7 +315,7 @@ def init():
 	writeRegister(TSL2561_Interrupt, 0x00)
 	powerDown()
 
-def publishNotification(alert)
+def publishNotification(alert):
 	data["alert"] = "Sunlight simulation is turned ON"
 	data["payload"] = ""
 	json_data = json.dumps(data)

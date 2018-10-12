@@ -343,7 +343,7 @@ def main():
 
 		json_data = json.dumps(data)
 		print('data', json_data)
-		publishNotification(mqttPath, json_data)
+		client.publish(mqttPath, json_data)
 
 		message = ""
 

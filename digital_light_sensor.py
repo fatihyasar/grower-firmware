@@ -19,6 +19,7 @@ from smbus import SMBus
 
 #custom
 mqttPath = "/sensors/lightsense"
+apnPath = "/brokers/pushnotification"
 broker_address="192.168.1.55"
 data = {}
 
@@ -334,6 +335,17 @@ def main():
 		print('data', json_data)
 		client.publish(mqttPath, json_data) 
 
+		data = {}
+		if(int(data['visibleLux']) > 100):
+			data["alert"] = "Sunlight simulation is turned ON"
+		else:
+			data["alert"] = "Sunlight simulation is turned ON"
+
+		data["payload"] = ""
+		json_data = json.dumps(data)
+		client.publish(apnPath, json_data) 
+
+		
 		sleep(5)
 
 if __name__ == "__main__":

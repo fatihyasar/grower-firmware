@@ -23,6 +23,7 @@ apnPath = "/brokers/pushnotification"
 broker_address="192.168.1.55"
 data = {}
 
+client = mqtt.Client("P1")
 
 
 TSL2561_Control = 0x80
@@ -322,11 +323,10 @@ def publishNotification(alert):
 
 def main():
 	init()
-	
+
 	lightState = 0
 	lightsMinTreshold = 500
 
-	client = mqtt.Client("P1")
 	client.connect(broker_address) #connect to broker
 	client.loop_start() #start the loop
 

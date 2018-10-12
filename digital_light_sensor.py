@@ -315,11 +315,11 @@ def init():
 	powerDown()
 
 def publishNotification(alert):
-    msg = {}
-	msg["alert"] = alert
-	msg["payload"] = ""
-	json_data = json.dumps(msg)
-	client.publish(apnPath, json_data) 
+		msg = {}
+		msg["alert"] = alert
+		msg["payload"] = ""
+		json_data = json.dumps(msg)
+		client.publish(apnPath, json_data) 
 
 
 def main():

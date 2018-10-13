@@ -347,6 +347,7 @@ def main():
 			print('data', json_data)
 			client.publish(mqttPath, json_data)
 
+			'''
 			message = ""
 
 			#Lights is opened
@@ -360,7 +361,7 @@ def main():
 					if lightState == 1:    					 
 							lightState = 0
 							publishNotification("Sunlight simulation is turned OFF")
-
+			'''
 			sleep(5)
 
 if __name__ == "__main__":

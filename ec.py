@@ -56,9 +56,9 @@ while True:
 
             print "Water Temp :", temp / 100, " -EC :", ec / 1000
 
-            data['ec'] =  int(ec) / 1000
-            data['water_temp'] = int(temp) / 100
-            data['time'] = int(time.time())
+            data["ec"] =  int(ec) / 1000
+            data["water_temp"] = int(temp) / 100
+            data["time"] = int(time.time())
             json_data = json.dumps(data)
             print 'data :', json_data
             client.publish(mqttPath, json_data) 

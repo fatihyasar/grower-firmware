@@ -30,35 +30,35 @@ while True:
             #temperature
             bus.write_byte(ADDRESS,0xa6)
             time.sleep(0.5)
-            data = bus.read_i2c_block_data(ADDRESS, 0, 2)
-            temp=(data[1]&0x0f)<<8 | data[0] 
+            sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
+            temp=(sensorData[1]&0x0f)<<8 | sensorData[0] 
 
             #humudity
             bus.write_byte(ADDRESS,0xa7)
             time.sleep(0.5)
-            data = None
-            data = bus.read_i2c_block_data(ADDRESS, 0, 2)
-            humudity=(data[1]&0x0f)<<8 | data[0]
+            sensorData = None
+            sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
+            humudity=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
             #Dielectric
             bus.write_byte(ADDRESS,0xa8)
             time.sleep(0.5)
-            data = None
-            data = bus.read_i2c_block_data(ADDRESS, 0, 2)
-            dielectric=(data[1]&0x0f)<<8 | data[0]
+            sensorData = None
+            sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
+            dielectric=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
             #EC
             bus.write_byte(ADDRESS,0xa9)
             time.sleep(0.5)
-            data = None
-            data = bus.read_i2c_block_data(ADDRESS, 0, 2)
-            ec=(data[1]&0x0f)<<8 | data[0]
+            sensorData = None
+            sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
+            ec=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
             print "Water Temp :", temp / 100, " -EC :", ec / 1000
 
-            data["ec"] =  int(ec) / 1000
-            data["water_temp"] = int(temp) / 100
-            data["time"] = int(time.time())
+            data['ec'] =  ec / 1000
+            data['water_temp'] = temp / 100
+            data['time'] = int(time.time())
             json_data = json.dumps(data)
             print 'data :', json_data
             client.publish(mqttPath, json_data) 

@@ -29,23 +29,27 @@ while True:
     try:
             #temperature
             bus.write_byte(ADDRESS,0xa6)
+            time.sleep(0.5)
             sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
             temp=(sensorData[1]&0x0f)<<8 | sensorData[0] 
 
             #humudity
             bus.write_byte(ADDRESS,0xa7)
+            time.sleep(0.5)
             sensorData = None
             sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
             humudity=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
             #Dielectric
             bus.write_byte(ADDRESS,0xa8)
+            time.sleep(0.5)
             sensorData = None
             sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
             dielectric=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
             #EC
             bus.write_byte(ADDRESS,0xa9)
+            time.sleep(0.5)
             sensorData = None
             sensorData = bus.read_i2c_block_data(ADDRESS, 0, 2)
             ec=(sensorData[1]&0x0f)<<8 | sensorData[0]

@@ -62,7 +62,7 @@ while True:
             json_data = json.dumps(data)
             print 'data :', json_data
             client.publish(mqttPath, json_data) 
-            time.sleep(5)
+            time.sleep(3)
 
     except IOError:
         print ("Error")

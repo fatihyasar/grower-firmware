@@ -56,8 +56,8 @@ while True:
 
             print "Water Temp :", temp / 100, " -EC :", ec / 1000
 
-            data['ec'] = ec / 1000
-            data['water_temp'] = temp / 100
+            data['ec'] =  int(ec) / 1000
+            data['water_temp'] = int(temp) / 100
             data['time'] = int(time.time())
             json_data = json.dumps(data)
             print 'data :', json_data

@@ -65,6 +65,7 @@ def readEC():
     # print 'data :', json_data
     # client.publish(mqttPath, json_data) 
     # time.sleep(3)
+    return data
 
 
 

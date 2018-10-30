@@ -19,7 +19,7 @@ import math
 #client.loop_start() #start the loop
 
 def readEC():
-    bus = smbus.SMBus(1)
+    bus = smbus.SMBus(0)
 
     ADDRESS = 0x12
 

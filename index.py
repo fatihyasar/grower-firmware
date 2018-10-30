@@ -3,6 +3,8 @@ import ec
 import time
 import paho.mqtt.client as mqtt
 
+broker_address="192.168.1.55"
+
 client = mqtt.Client("P1")
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop

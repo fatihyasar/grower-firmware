@@ -57,7 +57,7 @@ def readEC():
     ec=(sensorData[1]&0x0f)<<8 | sensorData[0]
 
     #print "Water Temp :", temp / 100, " -EC :", ec / 1000
-    tempData['read'] = "success"
+    data['read'] = "success"
     data['ec'] =  ec / 1000
     data['water_temp'] = temp / 100
     data['time'] = int(time.time())

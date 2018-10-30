@@ -12,14 +12,20 @@ import math
 #debug = 1
 # use the bus that matches your raspi version
 
+debug = 1
+# use the bus that matches your raspi version
+rev = GPIO.RPI_REVISION
+if rev == 2 or rev == 3:
+    bus = smbus.SMBus(1)
+else:
+    bus = smbus.SMBus(0)
 
 #print time.time()
 #client = mqtt.Client("P1")
 #client.connect(broker_address) #connect to broker
 #client.loop_start() #start the loop
 
-def readEC():
-    bus = smbus.SMBus(0)
+def readEC()
 
     ADDRESS = 0x12
 

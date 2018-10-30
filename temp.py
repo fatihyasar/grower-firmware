@@ -28,6 +28,7 @@ def readTempSensor():
     [temp,humidity] = grovepi.dht(4, 1)  # sensor pin, white = 1  | blue = 0 
     tempData = {}
     if math.isnan(temp) == False and math.isnan(humidity) == False:
+        tempData['read'] = "success"
         tempData['temp'] = temp
         tempData['humidity'] = humidity
         tempData['time'] = int(time.time())
@@ -35,4 +36,6 @@ def readTempSensor():
         #json_data = json.dumps(data)
         #print('data', json_data)
         #client.publish(mqttPath, json_data) 
+    else
+        tempData['read'] = "fail"
     return tempData 

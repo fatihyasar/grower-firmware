@@ -24,6 +24,6 @@ while True:
 
         time.sleep(3)
 
-  except IOError:
+    except IOError:
         print ("Error")
         client.loop_stop() #stop the loop

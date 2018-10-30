@@ -2,7 +2,7 @@ import grovepi
 import math
 import json
 import time
-import paho.mqtt.client as mqtt
+#import paho.mqtt.client as mqtt
 
 # Connect the Grove Temperature & Humidity Sensor Pro to digital port D4
 # This example uses the blue colored sensor.

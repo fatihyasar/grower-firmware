@@ -26,7 +26,7 @@ else:
 #client.loop_start() #start the loop
 
 def readEC():
-
+    data = {}
     ADDRESS = 0x12
 
     #temperature

@@ -18,7 +18,7 @@ while True:
         print 'temp data :', json_temperatureData
         client.publish("/sensors/temperature", json_temperatureData) 
 
-        time.sleep(0.1)
+        time.sleep(0.5)
 
         ecData = ec.readEC()
         json_ecData = json.dumps(ecData)

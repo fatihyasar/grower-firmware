@@ -35,6 +35,11 @@ client.on_message = on_message
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop
 
+while True:
+    except IOError:
+    print ("Error")
+    client.loop_stop() #stop the loop
+
 '''
 while True:
     try:

@@ -39,8 +39,8 @@ while True:
     try:
        
     except IOError:
-    print ("Error")
-    client.loop_stop() #stop the loop
+        print ("Error")
+        client.loop_stop() #stop the loop
 
 '''
 while True:

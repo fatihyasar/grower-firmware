@@ -7,26 +7,54 @@ import grovepi
 
 broker_address="192.168.1.55"
 
-client = mqtt.Client("P1")
+waterLevelSensorPin = 15  # A1
+grovepi.pinMode(waterLevelSensorPin,"INPUT")
+
+plugsCommandTopic1 = '/actuators/plugs/+/open'
+plugsCommandTopic2 = '/actuators/plugs/+/close'
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe(plugsCommandTopic1)
+    client.subscribe(plugsCommandTopic2)
+
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    #cmd = json.loads(msg.payload)
+
+    print('on_message : ' + msg.payload)
+    # print(sensorName+" "+returnState(sensorVoltage))
+
+
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop
 
-waterLevelSensorPin = 15  # A1
-grovepi.pinMode(waterLevelSensorPin,"INPUT")
+
+
 
 while True:
     try:
 
         temperatureData = temp.readTempSensor()
         json_temperatureData = json.dumps(temperatureData)
-        print 'temp data :', json_temperatureData
+        print 'temp :', json_temperatureData
         client.publish("/sensors/temperature", json_temperatureData) 
 
         time.sleep(0.5)
 
         ecData = ec.readEC()
         json_ecData = json.dumps(ecData)
-        print 'ec data :', json_ecData
+        print 'ec :', json_ecData
         client.publish("/sensors/ec", json_ecData) 
 
         time.sleep(0.5)
@@ -38,7 +66,7 @@ while True:
         waterLevelData['time'] = int(time.time())
 
         json_WaterLevelData = json.dumps(waterLevelData)
-        print 'water level data :', json_WaterLevelData
+        print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
 

@@ -3,6 +3,7 @@ import ec
 import time
 import json
 import paho.mqtt.client as mqtt
+import grovepi
 
 broker_address="192.168.1.55"
 

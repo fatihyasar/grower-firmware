@@ -10,7 +10,7 @@ broker_address="192.168.1.55"
 waterLevelSensorPin = 15  # A1
 grovepi.pinMode(waterLevelSensorPin,"INPUT")
 
-plugsCommandTopic = '/actuators/plugs/command'
+plugsCommandTopic = '/actuators/plugs/command/#'
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -51,7 +51,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.message_callback_add("/actuators/plugs/command/+/start", on_start_plug)
 client.message_callback_add("/actuators/plugs/command/+/stop", on_stop_plug)
-
 
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop

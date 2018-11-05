@@ -27,7 +27,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     #cmd = json.loads(msg.payload)
 
-    print('on_message : ' + msg.payload)
+    print('on_message : ' + msg)
     # print(sensorName+" "+returnState(sensorVoltage))
 
 

@@ -29,6 +29,7 @@ while True:
         print 'ec data :', json_ecData
         client.publish("/sensors/ec", json_ecData) 
 
+        time.sleep(0.5)
 
         waterLevelValue = grovepi.analogRead(waterLevelSensorPin)
         waterLevelData = {}

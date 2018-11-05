@@ -10,7 +10,7 @@ broker_address="192.168.1.55"
 waterLevelSensorPin = 15  # A1
 grovepi.pinMode(waterLevelSensorPin,"INPUT")
 
-plugsCommandTopic = '/actuators/plugs/command/#'
+plugsCommandTopic = '/actuators/plugs/command/+/start'
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -28,33 +28,12 @@ def on_message(client, userdata, msg):
     # print(sensorName+" "+returnState(sensorVoltage))
 
 
-def on_start_plug(mosq, obj, msg):
-    # This callback will only be called for messages with topics that match
-    # /actuators/motors/+/stop
-    cmds =  msg.topic.split('/')
-    motorNumber = int(cmds[3])
-    stopMotor(motorNumber)
-    print("on_stop_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-
-def on_stop_plug(mosq, obj, msg):
-    # This callback will only be called for messages with topics that match
-    # /actuators/motors/+/stop
-    cmds =  msg.topic.split('/')
-    motorNumber = int(cmds[3])
-    stopMotor(motorNumber)
-    print("on_stop_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-
-
-
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop
-
-client.message_callback_add("/actuators/plugs/command/+/start", on_start_plug)
-client.message_callback_add("/actuators/plugs/command/+/stop", on_stop_plug)
 
 while True:
     try:

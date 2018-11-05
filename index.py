@@ -24,8 +24,7 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     #cmd = json.loads(msg.payload)
-
-    print('on_message : ' + msg)
+    print('on_message : ' + msg.payload)
     # print(sensorName+" "+returnState(sensorVoltage))
 
 

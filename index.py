@@ -33,7 +33,7 @@ def on_open_plug(mosq, obj, msg):
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
     relay.open(plugNumber)
-    client.publish('/sensors/plugs/'+plugNumber+'/state', 'on') 
+    client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'on') 
 
 
 
@@ -45,7 +45,7 @@ def on_close_plug(mosq, obj, msg):
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
     relay.close(plugNumber)
-    client.publish('/sensors/plugs/'+plugNumber+'/state', 'off') 
+    client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'off') 
 
 
 

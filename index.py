@@ -28,8 +28,7 @@ def on_message(client, userdata, msg):
 def on_open_plug(mosq, obj, msg):
     # This callback will only be called for messages with topics that match
     # 
-    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
-    print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    print("on_open_plug  : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
@@ -41,8 +40,7 @@ def on_open_plug(mosq, obj, msg):
 def on_close_plug(mosq, obj, msg):
     # This callback will only be called for messages with topics that match
     # 
-    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
-    print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    print("on_close_plug  : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
@@ -66,21 +64,21 @@ while True:
         temperatureData = temp.readTempSensor()
         json_temperatureData = json.dumps(temperatureData)
         temperatureData = temp.readTempSensor()
-        print 'temp :', json_temperatureData
+        #print 'temp :', json_temperatureData
         client.publish("/sensors/temperature", json_temperatureData) 
 
         time.sleep(0.5)
 
         ecData = ec.readEC()
         json_ecData = json.dumps(ecData)
-        print 'ec :', json_ecData
+        #print 'ec :', json_ecData
         client.publish("/sensors/ec", json_ecData) 
 
         time.sleep(0.5)
 
         waterLevelData = waterlevel.readWaterLevel()
         json_WaterLevelData = json.dumps(waterLevelData)
-        print 'water level :', json_WaterLevelData
+        #print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
 

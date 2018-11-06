@@ -9,7 +9,7 @@ grovepi.pinMode(waterLevelSensorPin,"INPUT")
 
 
 def readWaterLevel():
-    data = grovepi.analogRead(waterLevelSensorPin)
+    waterLevelValue = grovepi.analogRead(waterLevelSensorPin)
     data = {}
     data['read'] = 'success'
     data['value'] = waterLevelValue;

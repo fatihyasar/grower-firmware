@@ -28,6 +28,7 @@ def close(relayNumber):
 ########################
 
 if "__main__" == __name__:
+    print "running console mode"
     for x in range(2, 8):
         open(x)
         close(x)    

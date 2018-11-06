@@ -17,5 +17,11 @@ def readWaterLevel():
     return data
 
 
-
+########################
+# Main
+########################
+if "__main__" == __name__:
+    print "running console mode"
+    print readWaterLevel()
+    quit()
 

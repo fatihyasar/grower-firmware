@@ -64,21 +64,21 @@ while True:
         temperatureData = temp.readTempSensor()
         json_temperatureData = json.dumps(temperatureData)
         temperatureData = temp.readTempSensor()
-        #print 'temp :', json_temperatureData
+        print 'temp :', json_temperatureData
         client.publish("/sensors/temperature", json_temperatureData) 
 
         time.sleep(0.5)
 
         ecData = ec.readEC()
         json_ecData = json.dumps(ecData)
-        #print 'ec :', json_ecData
+        print 'ec :', json_ecData
         client.publish("/sensors/ec", json_ecData) 
 
         time.sleep(0.5)
 
         waterLevelData = waterlevel.readWaterLevel()
         json_WaterLevelData = json.dumps(waterLevelData)
-        #print 'water level :', json_WaterLevelData
+        print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
 

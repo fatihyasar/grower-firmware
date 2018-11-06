@@ -78,7 +78,7 @@ while True:
 
         time.sleep(0.5)
 
-        waterLevelData = waterLevel.readWaterLevel()
+        waterLevelData = waterlevel.readWaterLevel()
         json_WaterLevelData = json.dumps(waterLevelData)
         print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         

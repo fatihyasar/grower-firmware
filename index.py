@@ -1,15 +1,11 @@
 import temp
 import ec
+import waterlevel
 import time
 import json
 import paho.mqtt.client as mqtt
-import grovepi
 
-broker_address="192.168.1.55"
-
-waterLevelSensorPin = 15  # A1
-grovepi.pinMode(waterLevelSensorPin,"INPUT")
-
+broker_address = "192.168.1.55"
 plugsCommandTopic = '/actuators/plugs/command/+/start'
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -35,12 +31,8 @@ client.on_message = on_message
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop
 
-while True:
-    try:
-       
-    except IOError:
-        print ("Error")
-        client.loop_stop() #stop the loop
+
+#client.loop_stop() #stop the loop
 
 '''
 while True:
@@ -60,12 +52,8 @@ while True:
 
         time.sleep(0.5)
 
-        waterLevelValue = grovepi.analogRead(waterLevelSensorPin)
-        waterLevelData = {}
-        waterLevelData['read'] = 'success'
-        waterLevelData['sensor'] = waterLevelValue;
-        waterLevelData['time'] = int(time.time())
 
+        waterLevelData = waterLevel.readWaterLevel()
         json_WaterLevelData = json.dumps(waterLevelData)
         #print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         

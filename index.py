@@ -1,6 +1,7 @@
 #import temp
 #import ec
 #import waterlevel
+import relay
 import time
 import json
 import paho.mqtt.client as mqtt
@@ -32,6 +33,7 @@ def on_open_plug(mosq, obj, msg):
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
+    relay.open(plugNumber)
 
 
 
@@ -43,7 +45,8 @@ def on_close_plug(mosq, obj, msg):
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
-    
+    relay.close(plugNumber)
+
 
 
 client = mqtt.Client()

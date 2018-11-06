@@ -34,6 +34,7 @@ def on_open_plug(mosq, obj, msg):
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
     relay.open(plugNumber)
+    client.publish('/sensors/plugs/'+plugNumber+'/state', 'on') 
 
 
 
@@ -46,6 +47,7 @@ def on_close_plug(mosq, obj, msg):
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
     relay.close(plugNumber)
+    client.publish('/sensors/plugs/'+plugNumber+'/state', 'off') 
 
 
 
@@ -62,25 +64,24 @@ client.loop_start() #start the loop
 while True:
     try:
 
-        #json_temperatureData = json.dumps(temperatureData)
-        #temperatureData = temp.readTempSensor()
-        #print 'temp :', json_temperatureData
-        #client.publish("/sensors/temperature", json_temperatureData) 
+        json_temperatureData = json.dumps(temperatureData)
+        temperatureData = temp.readTempSensor()
+        print 'temp :', json_temperatureData
+        client.publish("/sensors/temperature", json_temperatureData) 
 
         time.sleep(0.5)
 
-        #ecData = ec.readEC()
-        #json_ecData = json.dumps(ecData)
-        #print 'ec :', json_ecData
-        #client.publish("/sensors/ec", json_ecData) 
+        ecData = ec.readEC()
+        json_ecData = json.dumps(ecData)
+        print 'ec :', json_ecData
+        client.publish("/sensors/ec", json_ecData) 
 
         time.sleep(0.5)
 
-
-        #waterLevelData = waterLevel.readWaterLevel()
-        #json_WaterLevelData = json.dumps(waterLevelData)
-        #print 'water level :', json_WaterLevelData
-        #client.publish("/sensors/waterlevel", json_WaterLevelData)         
+        waterLevelData = waterLevel.readWaterLevel()
+        json_WaterLevelData = json.dumps(waterLevelData)
+        print 'water level :', json_WaterLevelData
+        client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
 
     except IOError:

@@ -52,8 +52,8 @@ def on_close_plug(mosq, obj, msg):
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-client.message_callback_add("/actuators/plugs/command/+/start", on_open_plug)
-client.message_callback_add("/actuators/plugs/command/+/stop", on_close_plug)
+client.message_callback_add("/actuators/plugs/command/+/on", on_open_plug)
+client.message_callback_add("/actuators/plugs/command/+/off", on_close_plug)
 
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop

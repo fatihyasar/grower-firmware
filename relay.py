@@ -24,20 +24,7 @@ def close(relayNumber):
 ########################
 
 if "__main__" == __name__:
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
-        open(1)
-        close(1)    
+    for x in range(2, 7):
+        open(x)
+        close(x)    
         quit()

@@ -43,6 +43,7 @@ def on_close_plug(mosq, obj, msg):
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
+    
 
 
 client = mqtt.Client()

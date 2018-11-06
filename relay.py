@@ -9,11 +9,13 @@ grovepi.pinMode(relay,"OUTPUT")
 
 def open(relayNumber):
     grovepi.digitalWrite(relay,1)
+    time.sleep(2)
     print ("on")
 
 
 def close(relayNumber):
     grovepi.digitalWrite(relay,0)
+    time.sleep(2)
     print ("off")
 
 
@@ -22,6 +24,8 @@ def close(relayNumber):
 ########################
 
 if "__main__" == __name__:
+        open(1)
+        close(1)    
         open(1)
         close(1)    
         quit()

@@ -25,7 +25,7 @@ import time
 def readTempSensor():
     # This example uses the blue colored sensor. 
     # The first parameter is the port, the second parameter is the type of sensor.
-    [temp,humidity] = grovepi.dht(4, 0)  # sensor pin, white = 1  | blue = 0 
+    [temp,humidity] = grovepi.dht(8, 0)  # sensor pin, white = 1  | blue = 0 
     tempData = {}
     if math.isnan(temp) == False and math.isnan(humidity) == False:
         tempData['read'] = 'success'
@@ -39,3 +39,13 @@ def readTempSensor():
     else:
         tempData['read'] = "fail"
     return tempData 
+
+
+########################
+# Main
+########################
+
+if "__main__" == __name__:
+    print "running console mode"
+    print readTempSensor()  
+    quit()

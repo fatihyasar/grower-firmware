@@ -1,12 +1,12 @@
-import temp
-import ec
-import waterlevel
+#import temp
+#import ec
+#import waterlevel
 import time
 import json
 import paho.mqtt.client as mqtt
 
 broker_address = "192.168.1.55"
-plugsCommandTopic = '/actuators/plugs/command/+/start'
+plugsCommandTopic = '/actuators/plugs/command/#'
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -24,48 +24,62 @@ def on_message(client, userdata, msg):
     # print(sensorName+" "+returnState(sensorVoltage))
 
 
+def on_open_plug(mosq, obj, msg):
+    # This callback will only be called for messages with topics that match
+    # 
+    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
+    print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+
+    cmds =  msg.topic.split('/')
+    plugNumber = int(cmds[4])
+
+
+
+def on_close_plug(mosq, obj, msg):
+    # This callback will only be called for messages with topics that match
+    # 
+    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
+    print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+
+    cmds =  msg.topic.split('/')
+    plugNumber = int(cmds[4])
+
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
+client.message_callback_add("/actuators/plugs/command/+/start", on_open_plug)
+client.message_callback_add("/actuators/plugs/command/+/stop", on_close_plug)
 
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop
 
+
 while True:
     try:
 
-    except IOError:
-        print ("Error")
-        client.loop_stop() #stop the loop
-            
-#client.loop_stop() #stop the loop
-
-'''
-while True:
-    try:
-
-        temperatureData = temp.readTempSensor()
-        json_temperatureData = json.dumps(temperatureData)
+        #json_temperatureData = json.dumps(temperatureData)
+        #temperatureData = temp.readTempSensor()
         #print 'temp :', json_temperatureData
-        client.publish("/sensors/temperature", json_temperatureData) 
+        #client.publish("/sensors/temperature", json_temperatureData) 
 
         time.sleep(0.5)
 
-        ecData = ec.readEC()
-        json_ecData = json.dumps(ecData)
+        #ecData = ec.readEC()
+        #json_ecData = json.dumps(ecData)
         #print 'ec :', json_ecData
-        client.publish("/sensors/ec", json_ecData) 
+        #client.publish("/sensors/ec", json_ecData) 
 
         time.sleep(0.5)
 
 
-        waterLevelData = waterLevel.readWaterLevel()
-        json_WaterLevelData = json.dumps(waterLevelData)
+        #waterLevelData = waterLevel.readWaterLevel()
+        #json_WaterLevelData = json.dumps(waterLevelData)
         #print 'water level :', json_WaterLevelData
-        client.publish("/sensors/waterlevel", json_WaterLevelData)         
+        #client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
 
     except IOError:
         print ("Error")
         client.loop_stop() #stop the loop
-'''
+

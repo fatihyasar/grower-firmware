@@ -1,6 +1,6 @@
-#import temp
-#import ec
-#import waterlevel
+import temp
+import ec
+import waterlevel
 import relay
 import time
 import json
@@ -63,7 +63,7 @@ client.loop_start() #start the loop
 
 while True:
     try:
-
+        temperatureData = temp.readTempSensor()
         json_temperatureData = json.dumps(temperatureData)
         temperatureData = temp.readTempSensor()
         print 'temp :', json_temperatureData

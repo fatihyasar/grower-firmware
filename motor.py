@@ -1,7 +1,6 @@
 ########################
 # Libraries
 ########################
-'''
 import os
 import string
 import paho.mqtt.client as mqtt
@@ -54,10 +53,10 @@ def on_start_motor(mosq, obj, msg):
     sens = sensList.getSensor(motorNumber)
     sens.state = "running"
     sens.direction = direction
-    if sens.direction == 1:  #forward
+    if sens.direction == 1:  
         motorController.MotorDirectionSet(0b1010)
         print("motor set to forward");
-    elif sens.direction == 0: #backward
+    elif sens.direction == 0: 
         motorController.MotorDirectionSet(0b0101)
         print("motor set to backward");
 
@@ -115,7 +114,7 @@ class sensorList():
 
 	def sensorState(self, sensorID, monitorState):
              self.sensorList[sensorID].state = monitorState
-'''
+
 
 
 ########################
@@ -123,15 +122,6 @@ class sensorList():
 ########################
  
 if "__main__" == __name__:
-        motorController1 = grove_i2c_motor_driver.motor_driver(0x0f)
-        motorController1.MotorDirectionSet(0b1010) #or 0b0101
-        motorController1.MotorSpeedSetAB(100,100)
-
-        motorController2 = grove_i2c_motor_driver.motor_driver(0x0a)
-        motorController2.MotorDirectionSet(0b1010) #or 0b0101
-        motorController2.MotorSpeedSetAB(100,100)
-
-        '''
         sensList = sensorList()
         sensList.addSensor("M1", "Motor1", 1)
         sensList.addSensor("M2", "Motor2", 2)
@@ -154,7 +144,6 @@ if "__main__" == __name__:
         # handles reconnecting.
         # Other loop*() functions are available that give a threaded interface and a
         # manual interface.
-        '''
         client.loop_forever()
     
         quit()

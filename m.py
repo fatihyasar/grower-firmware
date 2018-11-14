@@ -15,7 +15,7 @@ if "__main__" == __name__:
 
         motorController1 = grove_i2c_motor_driver.motor_driver(0x0f)
         motorController1.MotorDirectionSet(0b1010) 
-        motorController1.MotorSpeedSetAB(100,100)
+        motorController1.MotorSpeedSetAB(0,0)
 
         motorController2 = grove_i2c_motor_driver.motor_driver(0x0a)
         motorController2.MotorDirectionSet(0b1010)

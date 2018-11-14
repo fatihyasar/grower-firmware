@@ -53,10 +53,10 @@ def on_start_motor(mosq, obj, msg):
     sens = sensList.getSensor(motorNumber)
     sens.state = "running"
     sens.direction = direction
-    if sens.direction == 1:  
+    if sens.direction == 1:  #forward
         motorController.MotorDirectionSet(0b1010)
         print("motor set to forward");
-    elif sens.direction == 0: 
+    elif sens.direction == 0: #backward
         motorController.MotorDirectionSet(0b0101)
         print("motor set to backward");
 
@@ -122,6 +122,10 @@ class sensorList():
 ########################
  
 if "__main__" == __name__:
+        motorController.MotorDirectionSet(0b1010) #or 0b0101
+        motorController.MotorSpeedSetAB(100,0)
+
+        '''
         sensList = sensorList()
         sensList.addSensor("M1", "Motor1", 1)
         sensList.addSensor("M2", "Motor2", 2)
@@ -144,6 +148,7 @@ if "__main__" == __name__:
         # handles reconnecting.
         # Other loop*() functions are available that give a threaded interface and a
         # manual interface.
+        '''
         client.loop_forever()
     
         quit()

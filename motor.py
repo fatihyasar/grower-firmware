@@ -1,6 +1,7 @@
 ########################
 # Libraries
 ########################
+'''
 import os
 import string
 import paho.mqtt.client as mqtt
@@ -114,7 +115,7 @@ class sensorList():
 
 	def sensorState(self, sensorID, monitorState):
              self.sensorList[sensorID].state = monitorState
-
+'''
 
 
 ########################
@@ -122,8 +123,13 @@ class sensorList():
 ########################
  
 if "__main__" == __name__:
-        motorController.MotorDirectionSet(0b1010) #or 0b0101
-        motorController.MotorSpeedSetAB(100,0)
+        motorController1 = grove_i2c_motor_driver.motor_driver(0x0f)
+        motorController1.MotorDirectionSet(0b1010) #or 0b0101
+        motorController1.MotorSpeedSetAB(100,100)
+
+        motorController2 = grove_i2c_motor_driver.motor_driver(0x0a)
+        motorController2.MotorDirectionSet(0b1010) #or 0b0101
+        motorController2.MotorSpeedSetAB(100,100)
 
         '''
         sensList = sensorList()

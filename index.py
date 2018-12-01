@@ -6,7 +6,7 @@ import time
 import json
 import paho.mqtt.client as mqtt
 
-broker_address = "192.168.1.22"
+broker_address = "192.168.1.55"
 plugsCommandTopic = '/actuators/plugs/command/#'
 
 # The callback for when the client receives a CONNACK response from the server.

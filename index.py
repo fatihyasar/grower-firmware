@@ -69,12 +69,12 @@ while True:
 
         time.sleep(0.5)
 
-        ecData = ec.readEC()
-        json_ecData = json.dumps(ecData)
-        print 'ec :', json_ecData
-        client.publish("/sensors/ec", json_ecData) 
+        #ecData = ec.readEC()
+        #json_ecData = json.dumps(ecData)
+        #print 'ec :', json_ecData
+        #client.publish("/sensors/ec", json_ecData) 
 
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
         waterLevelData = waterlevel.readWaterLevel()
         json_WaterLevelData = json.dumps(waterLevelData)

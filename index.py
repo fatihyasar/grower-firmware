@@ -5,9 +5,12 @@ import relay
 import time
 import json
 import paho.mqtt.client as mqtt
+from threading import Lock, Thread
 
 broker_address = "192.168.1.55"
 plugsCommandTopic = '/actuators/plugs/command/#'
+
+lock = Lock() #thread lock
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -32,7 +35,15 @@ def on_open_plug(mosq, obj, msg):
 
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])
-    relay.open(plugNumber)
+
+    try:
+        lock.acquire()     
+        relay.open(plugNumber)
+        lock.release()     
+    except Exception as e:
+        lock.release()     
+        raise e
+
     client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'on') 
 
 
@@ -43,8 +54,15 @@ def on_close_plug(mosq, obj, msg):
     print("on_close_plug  : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     cmds =  msg.topic.split('/')
-    plugNumber = int(cmds[4])
-    relay.close(plugNumber)
+    plugNumber = int(cmds[4])    
+    try:
+        lock.acquire()     
+        relay.close(plugNumber)
+        lock.release()     
+    except Exception as e:
+        lock.release()     
+        raise e
+
     client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'off') 
 
 
@@ -61,6 +79,7 @@ client.loop_start() #start the loop
 
 while True:
     try:
+        lock.acquire()        
         temperatureData = temp.readTempSensor()
         json_temperatureData = json.dumps(temperatureData)
         temperatureData = temp.readTempSensor()
@@ -81,8 +100,9 @@ while True:
         print 'water level :', json_WaterLevelData
         client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
-
+        lock.release()
     except IOError:
         print ("Error")
+        lock.release()
         client.loop_stop() #stop the loop
 

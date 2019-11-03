@@ -14,6 +14,12 @@ MQTT_TOPIC = [("/actuators/plugs/command/#",0), ("/actuators/motors/#",0)]
 motorController = grove_i2c_motor_driver.motor_driver()
 lock = Lock() #thread lock
 
+sensList = sensorList()
+sensList.addSensor("M1", "Motor1", 1)
+sensList.addSensor("M2", "Motor2", 2)
+sensList.addSensor("M3", "Motor3", 3)
+sensList.addSensor("M4", "Motor4", 4)
+
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT server with result code "+str(rc))

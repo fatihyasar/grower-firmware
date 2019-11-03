@@ -39,13 +39,13 @@ def on_open_plug(mosq, obj, msg):
     plugNumber = int(cmds[4])
 
     try:
-        lock.acquire()     
+        #lock.acquire()     
         relay.open(plugNumber)
         client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'on') 
         print("published : " + '/sensors/plugs/'+str(plugNumber)+'/state')
-        lock.release()     
+        #lock.release()     
     except Exception as e:
-        lock.release()     
+        #lock.release()     
         raise e
 
 
@@ -58,11 +58,11 @@ def on_close_plug(mosq, obj, msg):
     cmds =  msg.topic.split('/')
     plugNumber = int(cmds[4])    
     try:
-        lock.acquire()     
+        #lock.acquire()     
         relay.close(plugNumber)
-        lock.release()     
+        #lock.release()     
     except Exception as e:
-        lock.release()     
+        #lock.release()     
         raise e
 
     client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'off') 
@@ -162,7 +162,7 @@ client.message_callback_add("/actuators/motors/+/start/+/+", on_start_motor)
 client.message_callback_add("/actuators/motors/+/stop", on_stop_motor)
 
 client.connect(broker_address) #connect to broker
-client.loop_forever() #start the loop
+client.loop_start() #start the loop
 
 
 while True:
@@ -173,8 +173,6 @@ while True:
         temperatureData = temp.readTempSensor()
         print 'temp :', json_temperatureData
         client.publish("/sensors/temperature", json_temperatureData) 
-
-        time.sleep(0.5)
 
         #ecData = ec.readEC()
         #json_ecData = json.dumps(ecData)

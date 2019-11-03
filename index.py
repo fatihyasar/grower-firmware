@@ -10,7 +10,7 @@ import paho.mqtt.client as mqtt
 from threading import Lock, Thread
 
 broker_address = "192.168.1.55"
-MQTT_TOPIC = [("/actuators/plugs/command/#",0)]
+MQTT_TOPIC = [("/actuators/plugs/command/#",0), ("/actuators/motors/#",0)]
 motorController = grove_i2c_motor_driver.motor_driver()
 lock = Lock() #thread lock
 
@@ -98,7 +98,7 @@ def on_start_motor(mosq, obj, msg):
         motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
         #lock.release()
     except Exception as e:
-        #lock.release()
+        lock.release()
         raise e
 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)

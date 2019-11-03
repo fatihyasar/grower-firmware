@@ -10,7 +10,7 @@ import paho.mqtt.client as mqtt
 from threading import Lock, Thread
 
 broker_address = "192.168.1.55"
-MQTT_TOPIC = [("/actuators/plugs/command/#",0), ("/actuators/motors/command/#",0)]
+MQTT_TOPIC = [("/actuators/plugs/command/#",0)]
 motorController = grove_i2c_motor_driver.motor_driver()
 lock = Lock() #thread lock
 

@@ -80,27 +80,27 @@ def on_start_motor(mosq, obj, msg):
     direction = int(cmds[5])
     speed = int(cmds[6])
 
-    try:
-        sens = sensList.getSensor(motorNumber)
-        sens.state = "running"
-        sens.direction = direction
-        if sens.direction == 1:  
-            motorController.MotorDirectionSet(0b1010)
-            print("motor set to forward");
-        elif sens.direction == 0: 
-            motorController.MotorDirectionSet(0b0101)
-            print("motor set to backward");
+    #try:
+    sens = sensList.getSensor(motorNumber)
+    sens.state = "running"
+    sens.direction = direction
+    if sens.direction == 1:  
+        motorController.MotorDirectionSet(0b1010)
+        print("motor set to forward");
+    elif sens.direction == 0: 
+        motorController.MotorDirectionSet(0b0101)
+        print("motor set to backward");
 
-        sens.speed = abs(speed)
+    sens.speed = abs(speed)
 
-        print("motor configuration updated")
+    print("motor configuration updated")
 
-        #fy: assign later. other motorcontroller according to controllerNumber
-        motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+    #fy: assign later. other motorcontroller according to controllerNumber
+    motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+    #lock.release()
+    #except Exception as e:
         #lock.release()
-    except Exception as e:
-        #lock.release()
-        raise e
+        #raise e
 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 

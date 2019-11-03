@@ -20,7 +20,7 @@ localPass = ""	                            # Local MQTT password
 deviceTopic = "/actuators/motors/#"		    # Local MQTT topic to monitor
 localTimeOut = 120			                # Local MQTT session timeout
 sensorList = {}
-motorController = grove_i2c_motor_driver.motor_driver()
+motorController = grove_i2c_motor_driver.motor_driver(0x04)
 
 
 # The callback for when the client receives a CONNACK response from the server.

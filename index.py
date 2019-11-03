@@ -10,7 +10,7 @@ import paho.mqtt.client as mqtt
 from threading import Lock, Thread
 
 broker_address = "192.168.1.55"
-MQTT_TOPIC = [("/actuators/plugs/command/#",0),("/actuators/motors/command/#",0)]
+MQTT_TOPIC = [("/actuators/plugs/command/#",0), ("/actuators/motors/command/#",0)]
 motorController = grove_i2c_motor_driver.motor_driver()
 lock = Lock() #thread lock
 
@@ -183,10 +183,10 @@ while True:
 
         #time.sleep(0.5)
 
-        waterLevelData = waterlevel.readWaterLevel()
-        json_WaterLevelData = json.dumps(waterLevelData)
-        print 'water level :', json_WaterLevelData
-        client.publish("/sensors/waterlevel", json_WaterLevelData)         
+        #waterLevelData = waterlevel.readWaterLevel()
+        #json_WaterLevelData = json.dumps(waterLevelData)
+        #print 'water level :', json_WaterLevelData
+        #client.publish("/sensors/waterlevel", json_WaterLevelData)         
         time.sleep(3)
         lock.release()
     except IOError:

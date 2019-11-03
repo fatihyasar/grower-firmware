@@ -162,7 +162,7 @@ client.message_callback_add("/actuators/motors/+/start/+/+", on_start_motor)
 client.message_callback_add("/actuators/motors/+/stop", on_stop_motor)
 
 client.connect(broker_address) #connect to broker
-client.loop_start() #start the loop
+client.loop_forever() #start the loop
 
 
 while True:

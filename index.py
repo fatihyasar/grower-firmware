@@ -96,9 +96,9 @@ def on_start_motor(mosq, obj, msg):
 
         #fy: assign later. other motorcontroller according to controllerNumber
         motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
-        lock.release()
+        #lock.release()
     except Exception as e:
-        lock.release()
+        #lock.release()
         raise e
 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
@@ -150,7 +150,6 @@ class sensorList():
 
 	def sensorState(self, sensorID, monitorState):
              self.sensorList[sensorID].state = monitorState
-
 
 
 client = mqtt.Client()

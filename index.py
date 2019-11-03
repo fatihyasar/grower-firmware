@@ -98,7 +98,7 @@ def on_start_motor(mosq, obj, msg):
         motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
         #lock.release()
     except Exception as e:
-        lock.release()
+        #lock.release()
         raise e
 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)

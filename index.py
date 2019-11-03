@@ -158,8 +158,8 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.message_callback_add("/actuators/plugs/command/+/on", on_open_plug)
 client.message_callback_add("/actuators/plugs/command/+/off", on_close_plug)
-client.message_callback_add("/actuators/motors/command/+/start/+/+", on_start_motor)
-client.message_callback_add("/actuators/motors/command/+/stop", on_stop_motor)
+client.message_callback_add("/actuators/motors/+/start/+/+", on_start_motor)
+client.message_callback_add("/actuators/motors/+/stop", on_stop_motor)
 
 client.connect(broker_address) #connect to broker
 client.loop_start() #start the loop

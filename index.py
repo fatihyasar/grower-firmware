@@ -9,7 +9,7 @@ import grove_i2c_motor_driver
 import paho.mqtt.client as mqtt
 from threading import Lock, Thread
 
-broker_address = "test.mosquitto.org"
+broker_address = "192.168.1.55"
 MQTT_TOPIC = [("/actuators/plugs/command/#",0), ("/actuators/motors/command/#",0)]
 motorController = grove_i2c_motor_driver.motor_driver()
 lock = Lock() #thread lock
@@ -42,6 +42,7 @@ def on_open_plug(mosq, obj, msg):
         lock.acquire()     
         relay.open(plugNumber)
         client.publish('/sensors/plugs/'+str(plugNumber)+'/state', 'on') 
+        print("published : " + '/sensors/plugs/'+str(plugNumber)+'/state')
         lock.release()     
     except Exception as e:
         lock.release()     

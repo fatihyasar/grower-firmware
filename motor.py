@@ -106,6 +106,12 @@ def on_stop_motor(mosq, obj, msg):
 
 def stopMotor(motorNumber):
     print("stopping motor", motorNumber)
+
+    if motorNumber == 1:
+        motorSpeed1 = 0
+    if motorNumber == 2:
+        motorSpeed2 = 0
+
     sens = sensList.getSensor(motorNumber)
     sens.state = "stopped"
     sens.speed = 0

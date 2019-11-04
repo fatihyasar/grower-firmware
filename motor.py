@@ -142,7 +142,7 @@ if "__main__" == __name__:
 
 
         #subscribe generic motor channel
-        client.message_callback_add("/actuators/motors/+/start/+/+", on_start_motor)
+        client.message_callback_add("/actuators/motors/+/start/+/+/+", on_start_motor)
         client.message_callback_add("/actuators/motors/+/stop", on_stop_motor)
         client.on_message = on_message
     

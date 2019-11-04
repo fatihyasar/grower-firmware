@@ -6,6 +6,7 @@ import string
 import paho.mqtt.client as mqtt
 import time
 import json
+import threading
 from sensor import sensor
 import grove_i2c_motor_driver
 
@@ -72,12 +73,16 @@ def on_start_motor(mosq, obj, msg):
 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
-    if runforsec > 0:         
-        time.sleep(runforsec)
-        print("process wait for " + str(runforsec) + " sec. Now stopping motor : " + str(motorNumber))
-        stopMotor(motorNumber)
+    if runforsec > 0:      
+        timer = threading.Timer(runforsec, stopMotor, motorNumber)
+        timer.start()   
+        print("process is going to wait for " + str(runforsec)
+        #time.sleep(runforsec)
+        #print("Now stopping motor : " + str(motorNumber))
+        #stopMotor(motorNumber)
 
 
+def stopMotor 
 
 def publishState(motorNumber, state, speed, direction):
     topicState = "/actuators/motors/" + str(motorNumber) + "/state"

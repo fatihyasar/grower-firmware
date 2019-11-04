@@ -74,10 +74,8 @@ def on_start_motor(mosq, obj, msg):
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
     if runforsec > 0:                 
-        print("process is going to wait for " + str(runforsec)
-        time.sleep(runforsec)
-        print("Now stopping motor : " + str(motorNumber))
-        stopMotor(motorNumber)
+        timer = threading.Timer(runforsec, stopMotor, motorNumber)
+        timer.start()   
 
 
 

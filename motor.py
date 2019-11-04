@@ -71,16 +71,18 @@ def on_start_motor(mosq, obj, msg):
     elif motorNumber == 2:
         motorController.MotorSpeedSetAB(0,speed)
 
-    publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
-
     if runforsec > 0:      
-        timer = threading.Timer(runforsec, stopMotor, motorNumber)
+        timer = threading.Timer(runforsec, f, motorNumber)
         timer.start()   
         print("process is going to wait for " + str(runforsec)
         #time.sleep(runforsec)
         #print("Now stopping motor : " + str(motorNumber))
         #stopMotor(motorNumber)
-        
+
+    publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
+
+
+
 def publishState(motorNumber, state, speed, direction):
     topicState = "/actuators/motors/" + str(motorNumber) + "/state"
     topicSpeed = "/actuators/motors/" + str(motorNumber) + "/speed"

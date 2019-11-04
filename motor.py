@@ -63,7 +63,7 @@ def on_start_motor(mosq, obj, msg):
 
     sens.speed = abs(speed)
 
-    print("motor configuration updated for motorNumber : " + motorNumber)
+    print("motor configuration updated for motorNumber : " + str(motorNumber))
 
     if motorNumber == 1:
         motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;

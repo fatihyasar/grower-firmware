@@ -73,10 +73,10 @@ def on_start_motor(mosq, obj, msg):
 
     if motorNumber == 1:
         motorSpeed1 = speed
-    elif motorNumber == 2:
+    if motorNumber == 2:
         motorSpeed2 = speed
 
-    motorController.MotorSpeedSetAB(motorSpeed1,motorSpeed2) 
+    motorController.MotorSpeedSetAB(motorSpeed1, motorSpeed2) 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
     if runforsec > 0:                 

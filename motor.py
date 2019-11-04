@@ -74,7 +74,7 @@ def on_start_motor(mosq, obj, msg):
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
     if runforsec > 0:                 
-        timer = threading.Timer(runforsec, stopMotor, motorNumber)
+        timer = threading.Timer(runforsec, stopMotor, [motorNumber])
         timer.start()   
 
 

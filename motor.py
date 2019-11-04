@@ -82,8 +82,6 @@ def on_start_motor(mosq, obj, msg):
         #stopMotor(motorNumber)
 
 
-def stopMotor 
-
 def publishState(motorNumber, state, speed, direction):
     topicState = "/actuators/motors/" + str(motorNumber) + "/state"
     topicSpeed = "/actuators/motors/" + str(motorNumber) + "/speed"

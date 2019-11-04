@@ -23,6 +23,11 @@ localTimeOut = 120			                # Local MQTT session timeout
 sensorList = {}
 motorController = grove_i2c_motor_driver.motor_driver()
 
+motorSpeed1 = 0
+motorSpeed2 = 0
+motorSpeed3 = 0
+motorSpeed4 = 0
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -67,10 +72,11 @@ def on_start_motor(mosq, obj, msg):
     print("motor configuration updated for motorNumber : " + str(motorNumber))
 
     if motorNumber == 1:
-        motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+        motorSpeed1 = speed
     elif motorNumber == 2:
-        motorController.MotorSpeedSetAB(0,speed)
+        motorSpeed2 = speed
 
+    motorController.MotorSpeedSetAB(motorSpeed1,motorSpeed2) 
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
     if runforsec > 0:                 

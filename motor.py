@@ -35,7 +35,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     #cmd = json.loads(msg.payload)
 
-    print('on_message : ' + msg.payload)
+    print('>>> on_message : ' + msg.payload)
     # print(sensorName+" "+returnState(sensorVoltage))
 
 
@@ -63,10 +63,13 @@ def on_start_motor(mosq, obj, msg):
 
     sens.speed = abs(speed)
 
-    print("motor configuration updated")
+    print("motor configuration updated for motorNumber : " + motorNumber)
 
-    #fy: assign later. other motorcontroller according to controllerNumber
-    motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+    if motorNumber == 1:
+        motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
+    elif motorNumber == 2:
+        motorController.MotorSpeedSetAB(0,speed)
+
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
 
     if runforsec > 0:         

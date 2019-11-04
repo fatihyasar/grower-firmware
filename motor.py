@@ -71,8 +71,8 @@ def on_start_motor(mosq, obj, msg):
     elif motorNumber == 2:
         motorController.MotorSpeedSetAB(0,speed)
 
+    timer = threading.Timer(runforsec, stopMotor, motorNumber)
     if runforsec > 0:      
-        timer = threading.Timer(runforsec, f, motorNumber)
         timer.start()   
         print("process is going to wait for " + str(runforsec)
         #time.sleep(runforsec)

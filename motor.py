@@ -23,10 +23,10 @@ localTimeOut = 120			                # Local MQTT session timeout
 sensorList = {}
 motorController = grove_i2c_motor_driver.motor_driver()
 
-global motorSpeed1 = 0
-global motorSpeed2 = 0
-global motorSpeed3 = 0
-global motorSpeed4 = 0
+global motorSpeed1 
+global motorSpeed2
+global motorSpeed3
+global motorSpeed4
 
 
 # The callback for when the client receives a CONNACK response from the server.

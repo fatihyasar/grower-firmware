@@ -42,13 +42,14 @@ def on_message(client, userdata, msg):
 def on_start_motor(mosq, obj, msg):
     # This callback will only be called for messages with topics that match
     # 
-    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]
+    # /actuators/motors/[motor number]/start/[dir]/[[speed 0|100]]/[runforsec 0 = not use| x seconds]
     print("on_start_motor message : " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     cmds =  msg.topic.split('/')
     motorNumber = int(cmds[3])
     direction = int(cmds[5])
     speed = int(cmds[6])
+    runforsec = int(cmds[6])
 
     sens = sensList.getSensor(motorNumber)
     sens.state = "running"
@@ -67,6 +68,13 @@ def on_start_motor(mosq, obj, msg):
     #fy: assign later. other motorcontroller according to controllerNumber
     motorController.MotorSpeedSetAB(speed,0) #defines the speed of motor 1 and motor 2;
     publishState(sens.sensorID, sens.state, sens.speed, sens.direction)
+
+    if runforsec > 0:         
+        time.sleep(runforsec)
+        print("process wait for " + runforsec + " sec. Now stopping motor : " + motorNumber)
+        stopMotor(motorNumber)
+
+
 
 def publishState(motorNumber, state, speed, direction):
     topicState = "/actuators/motors/" + str(motorNumber) + "/state"

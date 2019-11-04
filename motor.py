@@ -74,7 +74,7 @@ def on_start_motor(mosq, obj, msg):
 
     if runforsec > 0:         
         time.sleep(runforsec)
-        #print("process wait for " + runforsec + " sec. Now stopping motor : " + motorNumber)
+        print("process wait for " + str(runforsec) + " sec. Now stopping motor : " + str(motorNumber))
         stopMotor(motorNumber)
 
 
